@@ -3,6 +3,7 @@ package com.sonelli.juicessh.performancemonitor.activities;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -81,7 +82,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
         // This is because sending of commands required to poll performance data is only
         // possible on SSH connections.
         this.spinnerAdapter = new ConnectionSpinnerAdapter(this, PluginContract.Connections.TYPE_SSH);
-
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         getSupportActionBar().setListNavigationCallbacks(spinnerAdapter, this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -93,6 +93,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
         this.diskUsageTextView = (AutoResizeTextView) findViewById(R.id.disk_usage);
 
         this.connectButton = (Button) findViewById(R.id.connect_button);
+        Drawable drawable = getDrawable(R.drawable.login);
+        if (drawable != null) {
+            drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.2),
+                    (int)(drawable.getIntrinsicHeight()*0.2));
+        }
+        connectButton.setCompoundDrawables(drawable, null, null, null);
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,10 +106,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
                 final UUID id = spinnerAdapter.getConnectionId(getSupportActionBar().getSelectedNavigationIndex());
                 if(id != null){
                     if(isClientStarted){
-
                         connectButton.setText(R.string.connecting);
                         connectButton.setEnabled(false);
-
                         try {
                            client.connect(MainActivity.this, id, MainActivity.this, JUICESSH_REQUEST_CODE);
                         } catch (ServiceNotConnectedException e){
@@ -116,15 +120,19 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
         });
 
         this.disconnectButton = (Button) findViewById(R.id.disconnect_button);
+        Drawable drawable1 = getDrawable(R.drawable.logout);
+        if (drawable1 != null) {
+            drawable1.setBounds(0, 0, (int)(drawable1.getIntrinsicWidth()*0.2),
+                    (int)(drawable1.getIntrinsicHeight()*0.2));
+        }
+        disconnectButton.setCompoundDrawables(drawable1, null, null, null);
         this.disconnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(sessionId > -1 && sessionKey != null){
                     if(isClientStarted){
-
                         disconnectButton.setText(R.string.disconnecting);
                         disconnectButton.setEnabled(false);
-
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -168,16 +176,14 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
     protected void onResume() {
         super.onResume();
 
-        if(loadAverageTextView != null){
+        if(loadAverageTextView != null)
             loadAverageTextView.resizeText();
-        }
 
         // Use a Loader to load the connection list into the adapter from the JuiceSSH content provider
         // This keeps DB activity async and off the UI thread to prevent the plugin lagging
 
-        if(checkCallingOrSelfPermission("com.sonelli.juicessh.api.v1.permission.READ_CONNECTIONS") == PackageManager.PERMISSION_GRANTED) {
+        if(checkCallingOrSelfPermission("com.sonelli.juicessh.api.v1.permission.READ_CONNECTIONS") == PackageManager.PERMISSION_GRANTED)
             getSupportLoaderManager().initLoader(0, null, new ConnectionListLoader(this, spinnerAdapter));
-        }
 
         if(this.isConnected){
             connectButton.setVisibility(View.GONE);
@@ -194,7 +200,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
         super.onDestroy();
 
         if(isClientStarted) {
-
             if (isConnected){
                 try {
                     client.disconnect(sessionId, sessionKey);
@@ -202,9 +207,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
                     Log.e(TAG, "Failed to disconnect JuiceSSH session used performance monitor plugin");
                 }
              }
-
             client.stop(this);
-
         }
     }
 
@@ -248,7 +251,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
         // Register a listener for session finish events so that we know when the session has been disconnected
         try {
             client.addSessionFinishedListener(sessionId, sessionKey, this);
-        } catch (ServiceNotConnectedException e){}
+        } catch (ServiceNotConnectedException ignored){}
 
 
         this.loadAverageController = new LoadAverageController(this)
@@ -321,11 +324,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
             networkUsageController.stop();
         }
 
-        loadAverageTextView.setText("--");
-        freeRamTextView.setText("--");
-        cpuUsageTextView.setText("--");
-        networkUsageTextView.setText("--");
-        diskUsageTextView.setText("--");
+        loadAverageTextView.setText("-");
+        freeRamTextView.setText("-");
+        cpuUsageTextView.setText("-");
+        networkUsageTextView.setText("-");
+        diskUsageTextView.setText("-");
 
         disconnectButton.setVisibility(View.GONE);
         disconnectButton.setEnabled(false);
@@ -379,7 +382,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.OnNavig
                 Intent aboutIntent = new Intent(this, AboutActivity.class);
                 startActivity(aboutIntent);
                 return true;
-
         }
 
         return false;

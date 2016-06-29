@@ -77,11 +77,11 @@ public class NetworkUsageController extends BaseController {
                                     long bitsPerSecond = bytesPerSecond * 8;
 
                                     if(bitsPerSecond > 1048576){
-                                        setText(bitsPerSecond / 1024 / 1024 + "Mbps");
+                                        setText(bitsPerSecond / 1024 / 1024 + " MB/s");
                                     } else if(bitsPerSecond > 1024){
-                                        setText(bitsPerSecond / 1024 + "Kbps");
+                                        setText(bitsPerSecond / 1024 + " KB/s");
                                     } else {
-                                        setText("< 1Kbps");
+                                        setText("< 1 KB/s");
                                     }
 
                                     lastTotal.set(total);
@@ -120,9 +120,6 @@ public class NetworkUsageController extends BaseController {
 
 
         });
-
         return this;
-
     }
-
 }

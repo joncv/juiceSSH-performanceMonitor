@@ -10,6 +10,7 @@
     tools:context=".activities.AboutActivity">
 
     <TextView
+        android:textSize="16sp"
         android:autoLink="all"
         android:text="@string/app_about"
         android:layout_width="wrap_content"
