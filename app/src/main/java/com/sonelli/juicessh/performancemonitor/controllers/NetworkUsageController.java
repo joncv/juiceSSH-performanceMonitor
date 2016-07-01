@@ -69,24 +69,31 @@ public class NetworkUsageController extends BaseController {
                                     // Lets get that into bytes / second
                                     long seconds = milliseconds / 1000;
 
-                                    // If the last check was < 1sec ago - don't process this one
+                                    // If the last check was < 1 sec ago - don't process this one
                                     if(seconds < 1)
                                         return;
 
                                     long bytesPerSecond = bytes / seconds;
-                                    long bitsPerSecond = bytesPerSecond * 8;
-
-                                    if(bitsPerSecond > 1048576){
-                                        setText(bitsPerSecond / 1024 / 1024 + " MB/s");
-                                    } else if(bitsPerSecond > 1024){
-                                        setText(bitsPerSecond / 1024 + " KB/s");
+                                    if(bytesPerSecond > 1048576/8){
+                                        setText(bytesPerSecond / 1024 / 1024 / 8 + " MB/s");
+                                    } else if(bytesPerSecond > 1024/8){
+                                        setText(bytesPerSecond / 1024 / 8 + " KB/s");
                                     } else {
                                         setText("< 1 KB/s");
                                     }
+                                    //Here we use Bit instead of byte
+
+//                                    long bitsPerSecond = bytesPerSecond * 8;
+//                                    if(bitsPerSecond > 1048576){
+//                                        setText(bitsPerSecond / 1024 / 1024 + " MB/s");
+//                                    } else if(bitsPerSecond > 1024){
+//                                        setText(bitsPerSecond / 1024 + " KB/s");
+//                                    } else {
+//                                        setText("< 1 KB/s");
+//                                    }
 
                                     lastTotal.set(total);
                                     lastCheck.set(System.currentTimeMillis());
-
                                     break;
                                 case 127:
                                     setText(getString(R.string.error));
