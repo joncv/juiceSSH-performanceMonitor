@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 public class NetworkUsageController extends BaseController {
 
     public static final String TAG = "NetworkUsageController";
-
     public NetworkUsageController(Context context) {
         super(context);
     }
@@ -72,23 +71,15 @@ public class NetworkUsageController extends BaseController {
                                         return;
 
                                     long bytesPerSecond = bytes / seconds;
-                                    if(bytesPerSecond > 1048576/8){
-                                        setText(bytesPerSecond / 1024 / 1024 / 8 + " MB/s");
-                                    } else if(bytesPerSecond > 1024/8){
-                                        setText(bytesPerSecond / 1024 / 8 + " KB/s");
+                                    long bitsPerSecond = bytesPerSecond * 8;
+
+                                    if(bitsPerSecond > 1048576*8){
+                                        setText(bitsPerSecond / 1024 / 1024 / 8 + " MB/s");
+                                    } else if(bitsPerSecond > 1024*8){
+                                        setText(bitsPerSecond / 1024 / 8 + " KB/s");
                                     } else {
                                         setText("< 1 KB/s");
                                     }
-                                    //Here we use Bit instead of byte
-
-//                                    long bitsPerSecond = bytesPerSecond * 8;
-//                                    if(bitsPerSecond > 1048576){
-//                                        setText(bitsPerSecond / 1024 / 1024 + " MB/s");
-//                                    } else if(bitsPerSecond > 1024){
-//                                        setText(bitsPerSecond / 1024 + " KB/s");
-//                                    } else {
-//                                        setText("< 1 KB/s");
-//                                    }
 
                                     lastTotal.set(total);
                                     lastCheck.set(System.currentTimeMillis());
