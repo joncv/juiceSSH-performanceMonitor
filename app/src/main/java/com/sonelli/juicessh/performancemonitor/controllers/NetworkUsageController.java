@@ -3,11 +3,9 @@ package com.sonelli.juicessh.performancemonitor.controllers;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
-
 import com.sonelli.juicessh.performancemonitor.R;
 import com.sonelli.juicessh.pluginlibrary.exceptions.ServiceNotConnectedException;
 import com.sonelli.juicessh.pluginlibrary.listeners.OnSessionExecuteListener;
-
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
