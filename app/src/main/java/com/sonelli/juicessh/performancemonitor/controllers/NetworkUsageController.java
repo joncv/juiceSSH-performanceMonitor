@@ -43,7 +43,7 @@ public class NetworkUsageController extends BaseController {
                     getPluginClient().executeCommandOnSession(getSessionId(), getSessionKey(), "cat /proc/net/dev", new OnSessionExecuteListener() {
 
                         // Store the devices and the number of rx/tx bytes combined
-                        HashMap<String, Long> devices = new HashMap<String, Long>();
+                        HashMap<String, Long> devices = new HashMap<>();
 
                         @Override
                         public void onCompleted(int exitCode) {

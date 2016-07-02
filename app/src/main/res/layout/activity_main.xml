@@ -273,26 +273,30 @@
 
 
     <Button
-        android:backgroundTint="@color/dashboard_red"
+        android:backgroundTint="@color/dashboard_dark_orange"
         android:layout_margin="4dp"
         android:id="@+id/connect_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
+        android:textStyle="bold"
+        android:foregroundGravity="center_horizontal"
         android:text="@string/connect" />
 
     <Button
-        android:backgroundTint="@color/dashboard_red"
+        android:backgroundTint="@color/dashboard_dark_orange"
         android:layout_margin="4dp"
         android:visibility="gone"
         android:id="@+id/disconnect_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
+        android:textStyle="bold"
+        android:foregroundGravity="center_horizontal"
         android:text="@string/disconnect" />
 
 </RelativeLayout>

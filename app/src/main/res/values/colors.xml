@@ -5,8 +5,8 @@
     <color name="dashboard_blue">#FF04B1C5</color>
     <color name="dashboard_dark_orange">#FFF2663D</color>
     <color name="dashboard_light_orange">#FFFFA440</color>
-    <color name="dashboard_purple">#FF9F4673</color>
-    <color name="dashboard_lime">#FF95C049</color>
+    <color name="dashboard_purple">#963d6a</color>
+    <color name="dashboard_lime">#8cb83f</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="trans_white">#88FFFFFF</color>
